@@ -2,12 +2,12 @@
 <WorkflowBuilder Version="2.4.0"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
+                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
                  xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
-                 xmlns:q1="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
-                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:p1="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -25,6 +25,7 @@
           <gl:WindowState>Normal</gl:WindowState>
           <gl:DisplayDevice>Primary</gl:DisplayDevice>
           <gl:TargetRenderFrequency>0</gl:TargetRenderFrequency>
+          <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
           <gl:GraphicsMode>
             <gl:ColorFormat>
@@ -240,9 +241,9 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:CreateVector3">
-          <gl:X>-1.90351832</gl:X>
+          <gl:X>0.5763351</gl:X>
           <gl:Y>0</gl:Y>
-          <gl:Z>1.70323479</gl:Z>
+          <gl:Z>1</gl:Z>
         </Combinator>
       </Expression>
       <Expression xsi:type="PropertyMapping">
@@ -257,7 +258,7 @@
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:CreateVector3">
-          <gl:X>-1.90351832</gl:X>
+          <gl:X>0.5763351</gl:X>
           <gl:Y>0</gl:Y>
           <gl:Z>0</gl:Z>
         </Combinator>
@@ -267,7 +268,7 @@
           <Property Name="Target" />
         </PropertyMappings>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.PerspectiveViewport.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.PerspectiveView.bonsai">
         <Light>
           <X>0</X>
           <Y>1</Y>
@@ -275,12 +276,12 @@
         </Light>
         <FieldOfView>90</FieldOfView>
         <Eye>
-          <X>-1.90351832</X>
+          <X>0.5763351</X>
           <Y>0</Y>
-          <Z>1.70323479</Z>
+          <Z>1</Z>
         </Eye>
         <Target>
-          <X>-1.90351832</X>
+          <X>0.5763351</X>
           <Y>0</Y>
           <Z>0</Z>
         </Target>
@@ -394,7 +395,7 @@
         <Combinator xsi:type="rx:Repeat" />
       </Expression>
       <Expression xsi:type="Combinator">
-        <Combinator xsi:type="q1:DegreeToRadian" />
+        <Combinator xsi:type="p1:DegreeToRadian" />
       </Expression>
       <Expression xsi:type="PropertyMapping">
         <PropertyMappings>
@@ -426,7 +427,7 @@
         </Specular>
         <SpecularExponent>10</SpecularExponent>
         <RotationZ>59.01639</RotationZ>
-        <RotationY>265.2611</RotationY>
+        <RotationY>254.291656</RotationY>
         <RotationX>0</RotationX>
       </Expression>
       <Expression xsi:type="SubscribeSubject">

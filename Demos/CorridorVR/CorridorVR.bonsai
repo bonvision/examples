@@ -24,6 +24,7 @@
           <gl:WindowState>Normal</gl:WindowState>
           <gl:DisplayDevice>Primary</gl:DisplayDevice>
           <gl:TargetRenderFrequency>0</gl:TargetRenderFrequency>
+          <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
           <gl:GraphicsMode>
             <gl:ColorFormat>
@@ -195,7 +196,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
           <gl:MagFilter>Linear</gl:MagFilter>
         </Combinator>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewingWindow.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
         <Width>20</Width>
         <Height>15</Height>
         <Rotation>
@@ -264,7 +265,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>5.99</TranslationY>
-                    <TranslationZ>13</TranslationZ>
+                    <TranslationZ>-50</TranslationZ>
                     <ScaleX>100</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>0</ScaleZ>
@@ -336,7 +337,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>-1.99</TranslationY>
-                    <TranslationZ>13</TranslationZ>
+                    <TranslationZ>-50</TranslationZ>
                     <ScaleX>100</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>0</ScaleZ>
@@ -408,7 +409,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>4</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>13</TranslationZ>
+                    <TranslationZ>-50</TranslationZ>
                     <ScaleX>100</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>0</ScaleZ>
@@ -480,7 +481,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>-4</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>13</TranslationZ>
+                    <TranslationZ>-50</TranslationZ>
                     <ScaleX>100</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>0</ScaleZ>
@@ -583,7 +584,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>5.98</TranslationY>
-                    <TranslationZ>-17</TranslationZ>
+                    <TranslationZ>-80</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -655,7 +656,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>-1.98</TranslationY>
-                    <TranslationZ>-17</TranslationZ>
+                    <TranslationZ>-80</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -727,7 +728,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>3.88</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>-17</TranslationZ>
+                    <TranslationZ>-80</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -799,7 +800,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>-3.88</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>-17</TranslationZ>
+                    <TranslationZ>-80</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -906,7 +907,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>5.98</TranslationY>
-                    <TranslationZ>3</TranslationZ>
+                    <TranslationZ>-60</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -978,7 +979,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>-1.98</TranslationY>
-                    <TranslationZ>3</TranslationZ>
+                    <TranslationZ>-60</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1050,7 +1051,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>3.977</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>3</TranslationZ>
+                    <TranslationZ>-60</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1122,7 +1123,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>-3.88</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>3</TranslationZ>
+                    <TranslationZ>-60</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1229,7 +1230,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>5.98</TranslationY>
-                    <TranslationZ>23</TranslationZ>
+                    <TranslationZ>-40</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1301,7 +1302,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>-1.98</TranslationY>
-                    <TranslationZ>23</TranslationZ>
+                    <TranslationZ>-40</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1373,7 +1374,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>3.97</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>23</TranslationZ>
+                    <TranslationZ>-40</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1445,7 +1446,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>-3.88</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>23</TranslationZ>
+                    <TranslationZ>-40</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1552,7 +1553,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>5.98</TranslationY>
-                    <TranslationZ>43</TranslationZ>
+                    <TranslationZ>-20</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1624,7 +1625,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>0</TranslationX>
                     <TranslationY>-1.98</TranslationY>
-                    <TranslationZ>43</TranslationZ>
+                    <TranslationZ>-20</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1696,7 +1697,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>3.97</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>43</TranslationZ>
+                    <TranslationZ>-20</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>
@@ -1768,7 +1769,7 @@ ViewMatrix.Row3.Yzw as Light)</scr:Expression>
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawTexturedModel.bonsai">
                     <TranslationX>-3.88</TranslationX>
                     <TranslationY>2</TranslationY>
-                    <TranslationZ>43</TranslationZ>
+                    <TranslationZ>-20</TranslationZ>
                     <ScaleX>8</ScaleX>
                     <ScaleY>8</ScaleY>
                     <ScaleZ>8</ScaleZ>

@@ -2,8 +2,8 @@
 <WorkflowBuilder Version="2.4.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
-                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -51,7 +51,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:RenderFrame" />
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.OrthographicViewport.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.OrthographicView.bonsai">
         <Left>-180</Left>
         <Right>180</Right>
         <Bottom>-90</Bottom>
@@ -66,7 +66,7 @@
         <Width xsi:nil="true" />
         <Height xsi:nil="true" />
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewingWindow.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
         <Width>20</Width>
         <Height>15</Height>
         <Rotation>
@@ -86,7 +86,7 @@
         <Width>0.5</Width>
         <Height>1</Height>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewingWindow.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
         <Width>20</Width>
         <Height>15</Height>
         <Rotation>
@@ -124,8 +124,8 @@
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.RangeAnimation.bonsai">
         <Duration>2</Duration>
-        <RangeBegin>45</RangeBegin>
-        <RangeEnd>135</RangeEnd>
+        <RangeBegin>-90</RangeBegin>
+        <RangeEnd>90</RangeEnd>
       </Expression>
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="rx:Repeat" />
@@ -136,10 +136,10 @@
         </PropertyMappings>
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawGratings.bonsai">
-        <LocationX>131.25</LocationX>
+        <LocationX>25</LocationX>
         <LocationY>0</LocationY>
         <Angle>0</Angle>
-        <SpatialFrequency>10</SpatialFrequency>
+        <SpatialFrequency>0.3</SpatialFrequency>
         <TemporalFrequency>0</TemporalFrequency>
         <Phase>0</Phase>
         <SquareWave>false</SquareWave>

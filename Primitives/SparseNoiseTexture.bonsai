@@ -2,12 +2,12 @@
 <WorkflowBuilder Version="2.4.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
+                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
                  xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
                  xmlns:p1="clr-namespace:OpenCV.Net;assembly=OpenCV.Net"
                  xmlns:bv="clr-namespace:BonVision;assembly=BonVision"
                  xmlns:cv="clr-namespace:Bonsai.Vision;assembly=Bonsai.Vision"
                  xmlns:p2="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
-                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
                  xmlns="https://bonsai-rx.org/2018/workflow">
   <Workflow>
     <Nodes>
@@ -71,7 +71,7 @@
       <Expression xsi:type="Combinator">
         <Combinator xsi:type="gl:RenderFrame" />
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.NormalizedViewport.bonsai" />
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.NormalizedView.bonsai" />
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawImage.bonsai">
         <Angle>0</Angle>
         <TextureName>DynamicVideo</TextureName>
@@ -103,7 +103,7 @@
           <gl:TextureTarget>Texture2D</gl:TextureTarget>
         </Combinator>
       </Expression>
-      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.PerspectiveViewport.bonsai">
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.PerspectiveView.bonsai">
         <Light>
           <X>0</X>
           <Y>1</Y>
@@ -189,8 +189,8 @@
             <Expression xsi:type="Combinator">
               <Combinator xsi:type="dsp:ConvertFromArray">
                 <dsp:Size>
-                  <dsp:Height>10</dsp:Height>
                   <dsp:Width>10</dsp:Width>
+                  <dsp:Height>10</dsp:Height>
                 </dsp:Size>
                 <dsp:Depth xsi:nil="true" />
                 <dsp:Channels xsi:nil="true" />
