@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.4.0"
+<WorkflowBuilder Version="2.5.1"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:p1="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
                  xmlns:scr="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
@@ -68,12 +68,14 @@
                   <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawGratings.bonsai">
                     <LocationX>0.2</LocationX>
                     <LocationY>0.2</LocationY>
+                    <Layer>0</Layer>
                     <Angle>0</Angle>
                     <SpatialFrequency>20</SpatialFrequency>
                     <TemporalFrequency>0</TemporalFrequency>
                     <Phase>0</Phase>
                     <SquareWave>false</SquareWave>
                     <Contrast>1</Contrast>
+                    <DutyCycle xsi:nil="true" />
                     <Radius>0.151162788</Radius>
                     <Aperture>0</Aperture>
                     <Opacity>1</Opacity>
@@ -417,7 +419,7 @@ def process(value):
           <gl:WindowBorder>Resizable</gl:WindowBorder>
           <gl:WindowState>Normal</gl:WindowState>
           <gl:DisplayDevice>Primary</gl:DisplayDevice>
-          <gl:TargetRenderFrequency>0</gl:TargetRenderFrequency>
+          <gl:TargetRenderFrequency>60</gl:TargetRenderFrequency>
           <gl:TargetUpdateFrequency xsi:nil="true" />
           <gl:RenderState />
           <gl:GraphicsMode>
@@ -479,6 +481,7 @@ def process(value):
         <ExtentY>0.1</ExtentY>
         <LocationX>0</LocationX>
         <LocationY>0</LocationY>
+        <Layer>0</Layer>
         <Angle>0</Angle>
       </Expression>
       <Expression xsi:type="Combinator">
