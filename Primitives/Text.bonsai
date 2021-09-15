@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<WorkflowBuilder Version="2.5.1"
+<WorkflowBuilder Version="2.6.2"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
                  xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
@@ -59,7 +59,7 @@
       </Expression>
       <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawText.bonsai">
         <Text>Hello world!</Text>
-        <Font>Microsoft Sans Serif, 13.875pt</Font>
+        <Font>Microsoft Sans Serif, 19.8000011pt</Font>
         <Alignment>Center</Alignment>
         <LineAlignment>Center</LineAlignment>
         <TextRenderingHint>AntiAliasGridFit</TextRenderingHint>
