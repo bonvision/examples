@@ -1,0 +1,820 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<WorkflowBuilder Version="2.8.1"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xmlns:gl="clr-namespace:Bonsai.Shaders;assembly=Bonsai.Shaders"
+                 xmlns:res="clr-namespace:Bonsai.Resources;assembly=Bonsai.System"
+                 xmlns:rx="clr-namespace:Bonsai.Reactive;assembly=Bonsai.Core"
+                 xmlns:dsp="clr-namespace:Bonsai.Dsp;assembly=Bonsai.Dsp"
+                 xmlns:p1="clr-namespace:Bonsai.Scripting;assembly=Bonsai.Scripting"
+                 xmlns:num="clr-namespace:Bonsai.Numerics;assembly=Bonsai.Numerics"
+                 xmlns="https://bonsai-rx.org/2018/workflow">
+  <Workflow>
+    <Nodes>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>DisplayAndResources</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="DisplayDevice" />
+              <Property Name="WindowState" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="gl:CreateWindow">
+                <gl:Width>640</gl:Width>
+                <gl:Height>480</gl:Height>
+                <gl:VSync>On</gl:VSync>
+                <gl:SwapSync>false</gl:SwapSync>
+                <gl:ClearColor>Gray</gl:ClearColor>
+                <gl:ClearMask>DepthBufferBit ColorBufferBit</gl:ClearMask>
+                <gl:CursorVisible>true</gl:CursorVisible>
+                <gl:Location xsi:nil="true" />
+                <gl:WindowBorder>Resizable</gl:WindowBorder>
+                <gl:WindowState>Normal</gl:WindowState>
+                <gl:DisplayDevice>Second</gl:DisplayDevice>
+                <gl:TargetRenderFrequency>0</gl:TargetRenderFrequency>
+                <gl:TargetUpdateFrequency xsi:nil="true" />
+                <gl:RenderState />
+                <gl:GraphicsMode>
+                  <gl:ColorFormat>
+                    <gl:Red>8</gl:Red>
+                    <gl:Green>8</gl:Green>
+                    <gl:Blue>8</gl:Blue>
+                    <gl:Alpha>8</gl:Alpha>
+                  </gl:ColorFormat>
+                  <gl:Depth>16</gl:Depth>
+                  <gl:Stencil>0</gl:Stencil>
+                  <gl:Samples>0</gl:Samples>
+                  <gl:AccumulatorFormat>
+                    <gl:Red>0</gl:Red>
+                    <gl:Green>0</gl:Green>
+                    <gl:Blue>0</gl:Blue>
+                    <gl:Alpha>0</gl:Alpha>
+                  </gl:AccumulatorFormat>
+                  <gl:Buffers>2</gl:Buffers>
+                  <gl:Stereo>false</gl:Stereo>
+                </gl:GraphicsMode>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.BonVisionResources.bonsai" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="gl:TextureResources">
+                <gl:Textures>
+                  <gl:TextureConfiguration xsi:type="gl:Texture2D">
+                    <gl:Name>DynamicVideo</gl:Name>
+                    <gl:Width xsi:nil="true" />
+                    <gl:Height xsi:nil="true" />
+                    <gl:InternalFormat>Rgba</gl:InternalFormat>
+                    <gl:WrapS>Repeat</gl:WrapS>
+                    <gl:WrapT>Repeat</gl:WrapT>
+                    <gl:MinFilter>Nearest</gl:MinFilter>
+                    <gl:MagFilter>Nearest</gl:MagFilter>
+                  </gl:TextureConfiguration>
+                </gl:Textures>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="res:LoadResources" />
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="ActiveQuads" />
+        <Property Name="GridSize" />
+        <Property Name="Duration" />
+        <Property Name="Value" DisplayName="BinFileName" Category="Filename" />
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>SparseNoise Group</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Duration" />
+              <Property Name="ActiveQuads" />
+              <Property Name="GridSize" />
+            </Expression>
+            <Expression xsi:type="IncludeWorkflow" Path="BonVision:Collections.SparseNoise.bonsai">
+              <Duration>PT0.1S</Duration>
+              <ActiveQuads>15</ActiveQuads>
+              <GridSize>
+                <Width>5</Width>
+                <Height>5</Height>
+              </GridSize>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FilenamePrefix</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>SNBin</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}{1}</Format>
+              <Selector>Item1,Item2</Selector>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Path" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="dsp:MatrixWriter">
+                <dsp:Path>M24020_SparseNoiseSNBin</dsp:Path>
+                <dsp:Suffix>Timestamp</dsp:Suffix>
+                <dsp:Overwrite>false</dsp:Overwrite>
+                <dsp:Layout>ColumnMajor</dsp:Layout>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:Sink">
+              <Name>TriggerSyncQuad</Name>
+              <Workflow>
+                <Nodes>
+                  <Expression xsi:type="WorkflowInput">
+                    <Name>Source1</Name>
+                  </Expression>
+                  <Expression xsi:type="Combinator">
+                    <Combinator xsi:type="rx:ElementIndex" />
+                  </Expression>
+                  <Expression xsi:type="MemberSelector">
+                    <Selector>Index</Selector>
+                  </Expression>
+                  <Expression xsi:type="Add">
+                    <Operand xsi:type="IntProperty">
+                      <Value>1</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="Mod">
+                    <Operand xsi:type="IntProperty">
+                      <Value>2</Value>
+                    </Operand>
+                  </Expression>
+                  <Expression xsi:type="MulticastSubject">
+                    <Name>QuadState</Name>
+                  </Expression>
+                  <Expression xsi:type="WorkflowOutput" />
+                  <Expression xsi:type="MulticastSubject">
+                    <Name>RepCounter</Name>
+                  </Expression>
+                </Nodes>
+                <Edges>
+                  <Edge From="0" To="1" Label="Source1" />
+                  <Edge From="1" To="2" Label="Source1" />
+                  <Edge From="2" To="3" Label="Source1" />
+                  <Edge From="2" To="7" Label="Source1" />
+                  <Edge From="3" To="4" Label="Source1" />
+                  <Edge From="4" To="5" Label="Source1" />
+                  <Edge From="5" To="6" Label="Source1" />
+                </Edges>
+              </Workflow>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="gl:UpdateTexture">
+                <gl:TextureName>DynamicVideo</gl:TextureName>
+                <gl:TextureTarget>Texture2D</gl:TextureTarget>
+                <gl:InternalFormat>Rgba</gl:InternalFormat>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Timestamp" />
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Timestamp.TimeOfDay.TotalMilliseconds</Selector>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Disable">
+              <Builder xsi:type="IncludeWorkflow" Path="BonVision:Logging.LogEvent.bonsai">
+                <Format xsi:nil="true" />
+                <Selector xsi:nil="true" />
+                <Name>TrialEvents</Name>
+              </Builder>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="8" Label="Source1" />
+            <Edge From="1" To="13" Label="Source1" />
+            <Edge From="1" To="15" Label="Source2" />
+            <Edge From="2" To="5" Label="Source1" />
+            <Edge From="3" To="4" Label="Source1" />
+            <Edge From="4" To="5" Label="Source2" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source2" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="15" To="16" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="Stim Duration (s)" />
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Timer</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>RepCounter</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>DurationSingleImage</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:CombineLatest" />
+            </Expression>
+            <Expression xsi:type="p1:ExpressionTransform">
+              <p1:Expression>item1*item2</p1:Expression>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="Stim Duration (s)" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>60</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="PropertyMapping">
+              <PropertyMappings>
+                <Property Name="Value" />
+              </PropertyMappings>
+            </Expression>
+            <Expression xsi:type="Equal">
+              <Operand xsi:type="FloatProperty">
+                <Value>60</Value>
+              </Operand>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="2" Label="Source1" />
+            <Edge From="1" To="2" Label="Source2" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="7" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="6" To="7" Label="Source2" />
+            <Edge From="7" To="8" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="rx:Condition">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="WorkflowOutput" />
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="MulticastSubject">
+        <Name>TimerExpired</Name>
+      </Expression>
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="rx:TakeUntil" />
+      </Expression>
+      <Expression xsi:type="WorkflowOutput" />
+      <Expression xsi:type="Combinator">
+        <Combinator xsi:type="gl:RenderFrame" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.OrthographicView.bonsai">
+        <Left>-90</Left>
+        <Right>90</Right>
+        <Bottom>-90</Bottom>
+        <Top>90</Top>
+      </Expression>
+      <Expression xsi:type="rx:PublishSubject">
+        <Name>DrawStimuli</Name>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.SphereMapping.bonsai">
+        <ClearColor>Gray</ClearColor>
+        <Width xsi:nil="true" />
+        <Height xsi:nil="true" />
+        <RotationZ>0</RotationZ>
+        <RotationY>0</RotationY>
+        <RotationX>0</RotationX>
+        <FaceSize xsi:nil="true" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
+        <Width>15</Width>
+        <Height>15</Height>
+        <Rotation>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Rotation>
+        <Translation>
+          <X>-7.5</X>
+          <Y>-7.5</Y>
+          <Z>-10</Z>
+        </Translation>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+        <X>0</X>
+        <Y>0</Y>
+        <Width>0.5</Width>
+        <Height>0.5</Height>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="gl:UpdateRenderState">
+            <gl:RenderState>
+              <gl:StateConfiguration xsi:type="gl:ViewportState">
+                <gl:X>0</gl:X>
+                <gl:Y>0</gl:Y>
+                <gl:Width>0.333</gl:Width>
+                <gl:Height>1</gl:Height>
+              </gl:StateConfiguration>
+            </gl:RenderState>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
+          <Width>15</Width>
+          <Height>19.5</Height>
+          <Rotation>
+            <X>0</X>
+            <Y>60.000001669652114</Y>
+            <Z>0</Z>
+          </Rotation>
+          <Translation>
+            <X>-12</X>
+            <Y>0</Y>
+            <Z>-9</Z>
+          </Translation>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+          <X>0</X>
+          <Y>0</Y>
+          <Width>0.333</Width>
+          <Height>1</Height>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="gl:UpdateRenderState">
+            <gl:RenderState>
+              <gl:StateConfiguration xsi:type="gl:ViewportState">
+                <gl:X>0.333</gl:X>
+                <gl:Y>0</gl:Y>
+                <gl:Width>0.333</gl:Width>
+                <gl:Height>1</gl:Height>
+              </gl:StateConfiguration>
+            </gl:RenderState>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
+          <Width>15</Width>
+          <Height>19.5</Height>
+          <Rotation>
+            <X>0</X>
+            <Y>-60.000001669652114</Y>
+            <Z>0</Z>
+          </Rotation>
+          <Translation>
+            <X>13</X>
+            <Y>0</Y>
+            <Z>-7.5</Z>
+          </Translation>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+          <X>0.666</X>
+          <Y>0</Y>
+          <Width>0.333</Width>
+          <Height>1</Height>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="Disable">
+        <Builder xsi:type="Combinator">
+          <Combinator xsi:type="gl:UpdateRenderState">
+            <gl:RenderState>
+              <gl:StateConfiguration xsi:type="gl:ViewportState">
+                <gl:X>0.665</gl:X>
+                <gl:Y>0</gl:Y>
+                <gl:Width>0.333</gl:Width>
+                <gl:Height>1</gl:Height>
+              </gl:StateConfiguration>
+            </gl:RenderState>
+          </Combinator>
+        </Builder>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="WorkflowInput">
+              <Name>Source1</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:ElementIndex" />
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>Index</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>RenderFrameCount</Name>
+            </Expression>
+            <Expression xsi:type="MemberSelector">
+              <Selector>TimeStep.ElapsedRealTime</Selector>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="0" To="4" Label="Source1" />
+            <Edge From="1" To="2" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
+        <Width>15</Width>
+        <Height>15</Height>
+        <Rotation>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Rotation>
+        <Translation>
+          <X>7.5</X>
+          <Y>-7.5</Y>
+          <Z>-10</Z>
+        </Translation>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+        <X>0.5</X>
+        <Y>0</Y>
+        <Width>0.5</Width>
+        <Height>0.5</Height>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
+        <Width>15</Width>
+        <Height>15</Height>
+        <Rotation>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Rotation>
+        <Translation>
+          <X>-7.5</X>
+          <Y>7.5</Y>
+          <Z>-10</Z>
+        </Translation>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+        <X>0</X>
+        <Y>0.5</Y>
+        <Width>0.5</Width>
+        <Height>0.5</Height>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.ViewWindow.bonsai">
+        <Width>15</Width>
+        <Height>15</Height>
+        <Rotation>
+          <X>0</X>
+          <Y>0</Y>
+          <Z>0</Z>
+        </Rotation>
+        <Translation>
+          <X>7.5</X>
+          <Y>7.5</Y>
+          <Z>-10</Z>
+        </Translation>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Environment.DrawViewport.bonsai">
+        <X>0.5</X>
+        <Y>0.5</Y>
+        <Width>0.5</Width>
+        <Height>0.5</Height>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DrawStimuli</Name>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="ExtentX" />
+        <Property Name="LocationX" />
+        <Property Name="ExtentY" />
+        <Property Name="LocationY" />
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawImage.bonsai">
+        <TextureName>DynamicVideo</TextureName>
+        <ExtentX>90</ExtentX>
+        <ExtentY>90</ExtentY>
+        <LocationX>0</LocationX>
+        <LocationY>0</LocationY>
+        <Layer>0</Layer>
+        <Angle>0</Angle>
+        <ScaleX>1</ScaleX>
+        <ScaleY>1</ScaleY>
+        <ShiftX>0</ShiftX>
+        <ShiftY>0</ShiftY>
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>VarInIt</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="BooleanProperty">
+                <Value>false</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>TimerExpired</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>C:\Users\saleem_lab\Documents\VisualStimuli_Temp\</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>Saving Dir</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>RepCounter</Name>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="binFileName" Category="Filename" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>SparseNoise_Log_.bin</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>Bin FileName</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="num:CreateRandom">
+                <num:Seed>42</num:Seed>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>Random</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>TrialProgress</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>SyncPulse</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>QuadState</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>EyeFrameCount</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>200</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>MousePos</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="IntProperty">
+                <Value>0</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>VideoFrameCount</Name>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="FloatProperty">
+                <Value>0.1</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>DurationSingleImage</Name>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="6" To="7" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="9" To="10" Label="Source1" />
+            <Edge From="11" To="12" Label="Source1" />
+            <Edge From="13" To="14" Label="Source1" />
+            <Edge From="15" To="16" Label="Source1" />
+            <Edge From="17" To="18" Label="Source1" />
+            <Edge From="19" To="20" Label="Source1" />
+            <Edge From="21" To="22" Label="Source1" />
+            <Edge From="23" To="24" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>DrawStimuli</Name>
+      </Expression>
+      <Expression xsi:type="SubscribeSubject">
+        <Name>QuadState</Name>
+      </Expression>
+      <Expression xsi:type="PropertyMapping">
+        <PropertyMappings>
+          <Property Name="ColorR" Selector="it" />
+          <Property Name="ColorB" Selector="it" />
+          <Property Name="ColorG" Selector="it" />
+        </PropertyMappings>
+      </Expression>
+      <Expression xsi:type="IncludeWorkflow" Path="BonVision:Primitives.DrawQuad.bonsai">
+        <ExtentX>5</ExtentX>
+        <ExtentY>5</ExtentY>
+        <LocationX>-50</LocationX>
+        <LocationY>-40</LocationY>
+        <Layer>1</Layer>
+        <Angle>0</Angle>
+        <ColorR>0</ColorR>
+        <ColorG>0</ColorG>
+        <ColorB>0</ColorB>
+        <ColorA>1</ColorA>
+      </Expression>
+      <Expression xsi:type="ExternalizedMapping">
+        <Property Name="StimulusID" Category="Filename" />
+        <Property Name="MouseID" Category="Filename" />
+      </Expression>
+      <Expression xsi:type="GroupWorkflow">
+        <Name>Generate File Names</Name>
+        <Workflow>
+          <Nodes>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="StimulusID" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>SparseNoise</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="ExternalizedMapping">
+              <Property Name="Value" DisplayName="MouseID" />
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="StringProperty">
+                <Value>M24020</Value>
+              </Combinator>
+            </Expression>
+            <Expression xsi:type="Combinator">
+              <Combinator xsi:type="rx:Zip" />
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}_{1}</Format>
+              <Selector>Item2,Item1</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>FilenamePrefix</Name>
+            </Expression>
+            <Expression xsi:type="SubscribeSubject">
+              <Name>FilenamePrefix</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}_EyeLog.csv</Format>
+              <Selector>it</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>EyeName</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}_PDAsync.csv</Format>
+              <Selector>it</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>PDname</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}_WheelLog.csv</Format>
+              <Selector>it</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>WheelName</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}_Trial.csv</Format>
+              <Selector>it</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>TrialName</Name>
+            </Expression>
+            <Expression xsi:type="Format">
+              <Format>{0}_Metadata.csv</Format>
+              <Selector>it</Selector>
+            </Expression>
+            <Expression xsi:type="rx:BehaviorSubject">
+              <Name>MetadataName</Name>
+            </Expression>
+          </Nodes>
+          <Edges>
+            <Edge From="0" To="1" Label="Source1" />
+            <Edge From="1" To="4" Label="Source1" />
+            <Edge From="2" To="3" Label="Source1" />
+            <Edge From="3" To="4" Label="Source2" />
+            <Edge From="4" To="5" Label="Source1" />
+            <Edge From="5" To="6" Label="Source1" />
+            <Edge From="7" To="8" Label="Source1" />
+            <Edge From="7" To="10" Label="Source1" />
+            <Edge From="7" To="12" Label="Source1" />
+            <Edge From="7" To="14" Label="Source1" />
+            <Edge From="7" To="16" Label="Source1" />
+            <Edge From="8" To="9" Label="Source1" />
+            <Edge From="10" To="11" Label="Source1" />
+            <Edge From="12" To="13" Label="Source1" />
+            <Edge From="14" To="15" Label="Source1" />
+            <Edge From="16" To="17" Label="Source1" />
+          </Edges>
+        </Workflow>
+      </Expression>
+    </Nodes>
+    <Edges>
+      <Edge From="1" To="2" Label="Source1" />
+      <Edge From="2" To="7" Label="Source1" />
+      <Edge From="3" To="4" Label="Source1" />
+      <Edge From="4" To="5" Label="Source1" />
+      <Edge From="5" To="6" Label="Source1" />
+      <Edge From="6" To="7" Label="Source2" />
+      <Edge From="7" To="8" Label="Source1" />
+      <Edge From="9" To="10" Label="Source1" />
+      <Edge From="9" To="22" Label="Source1" />
+      <Edge From="10" To="11" Label="Source1" />
+      <Edge From="11" To="12" Label="Source1" />
+      <Edge From="12" To="13" Label="Source1" />
+      <Edge From="12" To="16" Label="Source1" />
+      <Edge From="12" To="19" Label="Source1" />
+      <Edge From="12" To="23" Label="Source1" />
+      <Edge From="12" To="25" Label="Source1" />
+      <Edge From="12" To="27" Label="Source1" />
+      <Edge From="13" To="14" Label="Source1" />
+      <Edge From="14" To="15" Label="Source1" />
+      <Edge From="16" To="17" Label="Source1" />
+      <Edge From="17" To="18" Label="Source1" />
+      <Edge From="19" To="20" Label="Source1" />
+      <Edge From="20" To="21" Label="Source1" />
+      <Edge From="23" To="24" Label="Source1" />
+      <Edge From="25" To="26" Label="Source1" />
+      <Edge From="27" To="28" Label="Source1" />
+      <Edge From="29" To="31" Label="Source1" />
+      <Edge From="30" To="31" Label="Source2" />
+      <Edge From="33" To="36" Label="Source1" />
+      <Edge From="34" To="35" Label="Source1" />
+      <Edge From="35" To="36" Label="Source2" />
+      <Edge From="37" To="38" Label="Source1" />
+    </Edges>
+  </Workflow>
+</WorkflowBuilder>
